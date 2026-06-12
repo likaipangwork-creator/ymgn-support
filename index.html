@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="驿马光年 App 技术支持 — 器材租赁记账、库存管理、收银与 OA 提报">
+  <title>驿马光年 · 技术支持</title>
+  <link rel="icon" type="image/png" href="app-icon.png">
+  <style>
+    :root {
+      --bg: #fafbfd;
+      --surface: #ffffff;
+      --text: #1a1a1a;
+      --text-secondary: #5c6370;
+      --accent: #3b82f6;
+      --accent-soft: #eff6ff;
+      --pink: #e879a0;
+      --sky: #87c5f5;
+      --border: #e8ecf2;
+      --radius: 14px;
+      --max: 720px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 56px 24px 48px;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 92% 8%, rgba(135, 197, 245, 0.45), transparent),
+        radial-gradient(ellipse 50% 45% at 8% 92%, rgba(232, 121, 160, 0.22), transparent),
+        radial-gradient(ellipse 40% 40% at 12% 88%, rgba(135, 197, 245, 0.28), transparent);
+      pointer-events: none;
+    }
+
+    .hero-inner { position: relative; max-width: var(--max); margin: 0 auto; }
+
+    .logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      display: block;
+      margin: 0 auto 20px;
+      object-fit: cover;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .slogan {
+      font-size: 13px;
+      letter-spacing: 0.45em;
+      color: var(--sky);
+      margin-bottom: 8px;
+      font-weight: 300;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 16px;
+      max-width: 480px;
+      margin: 0 auto 8px;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 6px 14px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 20px 64px;
+    }
+
+    section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h2 span { font-size: 20px; }
+
+    p, li { color: var(--text-secondary); font-size: 15px; }
+    p + p { margin-top: 10px; }
+
+    ul { padding-left: 20px; margin-top: 8px; }
+    li + li { margin-top: 6px; }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 520px) {
+      .feature-grid { grid-template-columns: 1fr; }
+    }
+
+    .feature {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .feature strong {
+      display: block;
+      color: var(--text);
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .feature span { font-size: 13px; color: var(--text-secondary); }
+
+    details {
+      border-top: 1px solid var(--border);
+      padding: 14px 0;
+    }
+
+    details:first-of-type { border-top: none; padding-top: 0; }
+
+    summary {
+      cursor: pointer;
+      font-weight: 500;
+      color: var(--text);
+      font-size: 15px;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary::after {
+      content: "+";
+      color: var(--text-secondary);
+      font-size: 18px;
+      font-weight: 300;
+    }
+
+    details[open] summary::after { content: "−"; }
+
+    details p { margin-top: 10px; padding-right: 8px; }
+
+    .contact-card {
+      background: var(--accent-soft);
+      border: 1px solid #dbeafe;
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 4px;
+    }
+
+    .contact-card a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-card a:hover { text-decoration: underline; }
+
+    .contact-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .contact-row strong { color: var(--text); min-width: 72px; }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+    }
+
+    footer a { color: var(--text-secondary); }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <img class="logo" src="app-icon.png" alt="驿马光年 App 图标" width="72" height="72">
+      <p class="slogan">驿 马 光 年</p>
+      <h1>技术支持</h1>
+      <p class="subtitle">器材租赁记账 iOS 应用 — 租赁订单、库存管理、收银台与 OA 提报一体化工具</p>
+      <span class="badge">仅限公司内部使用</span>
+    </div>
+  </header>
+
+  <main>
+
+    <section id="about">
+      <h2><span>📱</span> 关于应用</h2>
+      <p>
+        <strong>驿马光年</strong> 是一款面向影视器材租赁场景的内部管理 App，帮助团队完成从下单、器材出库到收款结算的全流程数字化管理。数据通过云端实时同步，支持多账号协作。
+      </p>
+      <div class="feature-grid">
+        <div class="feature">
+          <strong>租赁订单</strong>
+          <span>创建与管理租赁单，关联客户、器材与跟机员</span>
+        </div>
+        <div class="feature">
+          <strong>器材库存</strong>
+          <span>分组管理、条形码/二维码、库存占用统计</span>
+        </div>
+        <div class="feature">
+          <strong>收银台</strong>
+          <span>收款记录、已付/待付进度（管理员）</span>
+        </div>
+        <div class="feature">
+          <strong>OA 提报</strong>
+          <span>维修与采购申报、审批与执行跟踪</span>
+        </div>
+        <div class="feature">
+          <strong>营业统计</strong>
+          <span>收入与业务数据分析（管理员）</span>
+        </div>
+        <div class="feature">
+          <strong>人员信息</strong>
+          <span>客户、跟机员、介绍人档案（管理员）</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="requirements">
+      <h2><span>⚙️</span> 系统要求</h2>
+      <ul>
+        <li>设备：iPhone 或 iPad（iOS / iPadOS 18.5 及以上）</li>
+        <li>网络：需连接互联网以同步云端数据</li>
+        <li>账号：由公司超级管理员统一创建，不支持自助注册</li>
+        <li>权限：相机（条形码扫描）、相册（保存二维码/壁纸）— 仅在相关功能使用时申请</li>
+      </ul>
+    </section>
+
+    <section id="faq">
+      <h2><span>❓</span> 常见问题</h2>
+
+      <details>
+        <summary>如何获取登录账号？</summary>
+        <p>本 App 仅限驿马光年公司内部使用。新账号需由超级管理员在 App 内「管理员管理」中创建。如需开通权限，请联系公司超级管理员。</p>
+      </details>
+
+      <details>
+        <summary>数据不同步或显示旧数据怎么办？</summary>
+        <p>在主界面点击左上角云图标旁的「最后同步」区域，手动触发完全刷新；或下拉页面刷新。请确认设备已联网，并等待同步完成（界面会显示「同步中…」）。</p>
+      </details>
+
+      <details>
+        <summary>忘记密码怎么办？</summary>
+        <p>请联系超级管理员重置账号密码。出于安全考虑，App 不提供自助找回密码功能。</p>
+      </details>
+
+      <details>
+        <summary>为什么看不到「收银台」「营业数据统计」？</summary>
+        <p>以上功能仅对<strong>管理员</strong>账号开放。普通用户可使用租赁订单、器材库存、OA 提报等功能。如需提升权限，请联系超级管理员。</p>
+      </details>
+
+      <details>
+        <summary>OA 提报如何审批？</summary>
+        <p>员工提交后状态为「审核中」，由超级管理员在提报详情页进行「审批通过」或「审批不通过」。通过后执行人可在详情页「确认执行」。</p>
+      </details>
+
+      <details>
+        <summary>为什么没有收到推送通知？</summary>
+        <p>请在 iOS 设置中允许「驿马光年」发送通知。App 在运行时会通过云端实时推送业务提醒；完全关闭 App 后的系统级推送需公司 Apple 开发者账号配置后方可启用。</p>
+      </details>
+
+      <details>
+        <summary>条形码扫描无法使用？</summary>
+        <p>请前往 iOS「设置 → 驿马光年」确认已开启相机权限。首次使用扫描功能时 App 也会弹出授权请求。</p>
+      </details>
+    </section>
+
+    <section id="contact">
+      <h2><span>✉️</span> 联系我们</h2>
+      <p>如遇到无法自行解决的问题，请通过以下方式联系技术支持：</p>
+      <div class="contact-card">
+        <div class="contact-row">
+          <strong>邮箱</strong>
+          <a href="mailto:likaipangwork@gmail.com">likaipangwork@gmail.com</a>
+        </div>
+        <div class="contact-row">
+          <strong>账号权限</strong>
+          <span>联系超级管理员「庞力恺」</span>
+        </div>
+        <div class="contact-row">
+          <strong>反馈建议</strong>
+          <span>请说明设备型号、iOS 版本、问题步骤及截图</span>
+        </div>
+      </div>
+      <p style="margin-top: 14px; font-size: 13px;">
+        我们通常会在 1–3 个工作日内回复。紧急业务问题请直接联系部门负责人。
+      </p>
+    </section>
+
+    <section id="privacy">
+      <h2><span>🔒</span> 隐私说明</h2>
+      <p>
+        驿马光年为公司内部业务工具，所收集的数据（账号信息、订单、器材、客户及 OA 提报内容）仅用于公司内部租赁业务管理，存储于受访问控制的云端数据库，不会向第三方出售或共享。
+      </p>
+      <p>
+        App 使用的相机与相册权限仅在您主动使用扫描、保存二维码或设置壁纸等功能时调用，不会在后台持续访问。
+      </p>
+      <p>
+        如需删除账号或导出个人相关数据，请联系超级管理员处理。
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Copyright YMGN All Rights Reserved</p>
+    <p style="margin-top: 6px;">驿马光年 · 版本 1.0</p>
+  </footer>
+
+</body>
+</html>
